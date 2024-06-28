@@ -65,7 +65,7 @@ void _start(Framebuffer* framebuffer, PSF1_FONT* psf1_font){
     Print(framebuffer, psf1_font, 0xffffffff, "Hello Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel v Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel");
     Print(framebuffer, psf1_font, 0xff00ffff, "Hello Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel v Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel");
     Print(framebuffer, psf1_font, 0xff00ff, "Hello Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel v Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel");
-//buza resmi
+//buza resmi yakinda
 
 
 
