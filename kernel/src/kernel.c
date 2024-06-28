@@ -60,102 +60,12 @@ void Print(Framebuffer* framebuffer, PSF1_FONT* psf1_font, unsigned int colour, 
 
 
 void _start(Framebuffer* framebuffer, PSF1_FONT* psf1_font){
-    CursorPosition.X = 0;
+    CursorPosition.X = 50;
     CursorPosition.Y = 120;
-    
-    
-    //Print(framebuffer, psf1_font, 0xff00ff, "Hello Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel v Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel");
+    Print(framebuffer, psf1_font, 0xffffffff, "Hello Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel v Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel");
+    Print(framebuffer, psf1_font, 0xff00ffff, "Hello Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel v Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel");
+    Print(framebuffer, psf1_font, 0xff00ff, "Hello Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel v Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel Buzakernel");
 //buza resmi
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "====++---:::-:::--==-=============+=-=+==+======-:::=+++=========++=::======-:--===-:-===-");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "=-:-==::-:..::::::---=====-=+++++=:.:=======-=---:::==========-========-----=-====---=====");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "=--:--------====--=--::-==--====-::---====--=============================---==========++++");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "=--:--=====-====+====--====-:-----=-::-=====+++--======++++++++++++========++=======++++++");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "=-::===+++=-====++=========================++==--==-=: ..:-===--++==+=======++++++++++++++");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "=-=-=======-=+++=-+*##*+=======+==+**##**+========*#:           .=*++=====*%@@@@@@@%#++==+");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, ":..:-=====---==-::+%%%* .-----==*%%%%@@@@@%*====*#*:             .+*#*++*%@@@@##@@@@@#-===");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
-    CursorPosition.Y += 16;
-    Print(framebuffer, psf1_font, 0xffffffff, "");
 
 
 
