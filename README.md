@@ -3,6 +3,7 @@ C ile basit kernel ve bootloader
 çalıştırmak için 
 /gnu-efi 
 make
+
 make bootloader
 
 /kernel
