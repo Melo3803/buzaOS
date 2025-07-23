@@ -1,8 +1,8 @@
 # efi tabanlı sistem için C ile basit kernel ve bootloader
+Screenshot:
 <img width="1907" height="973" alt="Screenshot 2025-07-23 235600" src="https://github.com/user-attachments/assets/afd5b2e7-03ab-444a-b0b7-db56fa413042" />
 
-
-Building(derlemek için)
+### NASIL DERLENİR
 ### 1. Build bootloader (Bootloader'ı Derle)
 
 ```bash
