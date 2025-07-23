@@ -2,7 +2,7 @@
 #include <efilib.h>
 #include <elf.h>
 
-typedef unsigned long long size_t;
+// typedef unsigned long long size_t; // HATA BURADAYDI, BU SATIR SİLİNDİ
 
 typedef struct {
     void* BaseAddress;
@@ -180,22 +180,26 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
     void (*KernelStart)(Framebuffer*, PSF1_FONT*) = ((__attribute__((sysv_abi)) void (*)(Framebuffer*, PSF1_FONT*))header.e_entry);
 
     PSF1_FONT* newFont = LoadPSF1Font(NULL, L"zap-light16.psf", ImageHandle, SystemTable);
-    if (newFont == NULL) {
+    if (newFont == 0) { // NULL yerine 0 kullanmak daha güvenli
         Print(L"Font gecerli degil ya da bulunamadi(Font is not valid)\n\r");
     } else {
-        Print(L"Font bulundu. char size = %d\n\r", newFont->psf1_Header->charsize);
+        Print(L"Font bulundu. char size = %u\n\r", newFont->psf1_Header->charsize);
     }
 
     Framebuffer* newBuffer = InitializeGOP();
 
-    Print(L"Base: %d\n\rSize: %d\n\rWidth: %d\n\rHeight: %d\n\rPixelsPerScanline: %d\n\r",
+    if (newBuffer == 0){ // NULL yerine 0 kullanmak daha güvenli
+        Print(L"Framebuffer gecersiz. Kernel baslatilamiyor.\n\r");
+        while(1); 
+    }
+
+    Print(L"Base: %p\n\rSize: %llu\n\rWidth: %u\n\rHeight: %u\n\rPixelsPerScanline: %u\n\r",
         newBuffer->BaseAddress,
         newBuffer->BufferSize,
         newBuffer->Width,
         newBuffer->Height,
         newBuffer->PixelsPerScanLine);
 
-    KernelStart(newBuffer, newFont);
-
-    return EFI_SUCCESS; // Exit the UEFI application
+    KernelStart(newBuffer, newFont);    
+    return EFI_SUCCESS;
 }
