@@ -36,8 +36,8 @@ void Print(Framebuffer* framebuffer, PSF1_FONT* psf1_font, unsigned int colour, 
 
 void _start(Framebuffer* framebuffer, PSF1_FONT* psf1_font){
     CursorPosition.X = 50;
-    CursorPosition.Y = 50; 
-    Print(framebuffer, psf1_font, 0xffffffff, "Hello Buzakernel");
+    CursorPosition.Y = 120; 
+    Print(framebuffer, psf1_font, 0xff00ff, "Hello Buzakernel");
 
     
     unsigned int image_width = 147; 
@@ -49,18 +49,12 @@ void _start(Framebuffer* framebuffer, PSF1_FONT* psf1_font){
     unsigned int pos_y = margin;
     
     
-    int result = draw_image(framebuffer, pos_x, pos_y, image_width, image_height, buza_rgba);
+    draw_image(framebuffer, pos_x, pos_y, image_width, image_height, buza_rgba);
 
-    CursorPosition.X = 50;
-    CursorPosition.Y = pos_y + image_height + 32; 
 
     
-    if (result == 0) {
-        Print(framebuffer, psf1_font, 0x00ff00, "Resim cizildi"); //yesil
-    } else {
-        //buney
-        Print(framebuffer, psf1_font, 0xff0000, "Resim cizilemedi"); 
-    }
+    
+   
 
     return ;
 
