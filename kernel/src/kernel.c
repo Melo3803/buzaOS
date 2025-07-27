@@ -37,7 +37,7 @@ void Print(Framebuffer* framebuffer, PSF1_FONT* psf1_font, unsigned int colour, 
 void _start(Framebuffer* framebuffer, PSF1_FONT* psf1_font){
     CursorPosition.X = 50;
     CursorPosition.Y = 120; 
-    Print(framebuffer, psf1_font, 0xffffffff, "Hello Buzakernel");
+    Print(framebuffer, psf1_font, 0xff00ff, "Hello Buzakernel");
 
     
     unsigned int image_width = 147; 
