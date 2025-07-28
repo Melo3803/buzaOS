@@ -34,7 +34,7 @@
 #    SUCH DAMAGE.
 #
 
-export VERSION = 3.0.18
+VERSION = 3.0.12
 
 MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 SRCDIR = $(dir $(MKFILE_PATH))
@@ -47,8 +47,6 @@ SUBDIRS = lib gnuefi inc apps bootloader
 gnuefi: lib
 
 all:	check_gcc $(SUBDIRS)
-
-apps:	gnuefi
 
 mkvars:
 	@echo AR=$(AR)
@@ -82,15 +80,15 @@ $(SUBDIRS):
 	$(MAKE) -C $(OBJDIR)/$@ -f $(SRCDIR)/$@/Makefile SRCDIR=$(SRCDIR)/$@ ARCH=$(ARCH)
 
 clean:
-	@rm -vrf *~
-	@set -e ; for d in $(SUBDIRS); do \
+	rm -f *~
+	@for d in $(SUBDIRS); do \
 		if [ -d $(OBJDIR)/$$d ]; then \
 			$(MAKE) -C $(OBJDIR)/$$d -f $(SRCDIR)/$$d/Makefile SRCDIR=$(SRCDIR)/$$d clean; \
 		fi; \
 	done
 
 install:
-	@set -e ; for d in $(SUBDIRS); do \
+	@for d in $(SUBDIRS); do \
 		mkdir -p $(OBJDIR)/$$d; \
 		$(MAKE) -C $(OBJDIR)/$$d -f $(SRCDIR)/$$d/Makefile SRCDIR=$(SRCDIR)/$$d install; done
 
@@ -128,3 +126,4 @@ archive: tag
 	@dir=$$PWD; cd /tmp; tar -c --bzip2 -f $$dir/gnu-efi-$(VERSION).tar.bz2 gnu-efi-$(VERSION)
 	@rm -rf /tmp/gnu-efi-$(VERSION)
 	@echo "The archive is in gnu-efi-$(VERSION).tar.bz2"
+

@@ -56,7 +56,7 @@ _start:
 
 	mov out0=in0			// image handle
 	mov out1=in1			// systab
-	br.call.sptk.few rp=_entry
+	br.call.sptk.few rp=efi_main
 .Lret2:
 .exit:
 	mov ar.pfs=loc0
@@ -82,10 +82,6 @@ _start_plabel:
 
 	.section .reloc, "a"
 	data4	_start_plabel				// Page RVA
-	data4	12					// Block Size (2*4+2*2), must be aligned by 32 Bits
+	data4	12					// Block Size (2*4+2*2)
 	data2	(IMAGE_REL_BASED_DIR64<<12) +  0	// reloc for plabel's entry point
 	data2	(IMAGE_REL_BASED_DIR64<<12) +  8	// reloc for plabel's global pointer
-
-#if defined(__ELF__) && defined(__linux__)
-	.section .note.GNU-stack,"",%progbits
-#endif

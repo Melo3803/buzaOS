@@ -26,73 +26,63 @@
 ImageBase:
 	.ascii	"MZ"
 	.skip	58				// 'MZ' + pad + offset == 64
-	.4byte	pe_header - ImageBase		// Offset to the PE header.
+	.long	pe_header - ImageBase		// Offset to the PE header.
 pe_header:
 	.ascii	"PE"
-	.2byte 	0
+	.short 	0
 coff_header:
-	.2byte	0x166				// MIPS little endian
-	.2byte	2				// nr_sections
-	.4byte	0 				// TimeDateStamp
-	.4byte	0				// PointerToSymbolTable
-	.4byte	0				// NumberOfSymbols
-	.2byte	section_table - optional_header	// SizeOfOptionalHeader
-	.2byte	0x206				// Characteristics.
+	.short	0x166				// MIPS little endian
+	.short	2				// nr_sections
+	.long	0 				// TimeDateStamp
+	.long	0				// PointerToSymbolTable
+	.long	1				// NumberOfSymbols
+	.short	section_table - optional_header	// SizeOfOptionalHeader
+	.short	0x206				// Characteristics.
 						// IMAGE_FILE_DEBUG_STRIPPED |
 						// IMAGE_FILE_EXECUTABLE_IMAGE |
 						// IMAGE_FILE_LINE_NUMS_STRIPPED
 optional_header:
-	.2byte	0x20b				// PE32+ format
+	.short	0x20b				// PE32+ format
 	.byte	0x02				// MajorLinkerVersion
 	.byte	0x14				// MinorLinkerVersion
-	.4byte	_edata - _start			// SizeOfCode
-	.4byte	0				// SizeOfInitializedData
-	.4byte	0				// SizeOfUninitializedData
-	.4byte	_start - ImageBase		// AddressOfEntryPoint
-	.4byte	_start - ImageBase		// BaseOfCode
+	.long	_edata - _start			// SizeOfCode
+	.long	0				// SizeOfInitializedData
+	.long	0				// SizeOfUninitializedData
+	.long	_start - ImageBase		// AddressOfEntryPoint
+	.long	_start - ImageBase		// BaseOfCode
 
 extra_header_fields:
-	.8byte	0				// ImageBase
-	.4byte	0x20				// SectionAlignment
-	.4byte	0x8				// FileAlignment
-	.2byte	0				// MajorOperatingSystemVersion
-	.2byte	0				// MinorOperatingSystemVersion
-	.2byte	0				// MajorImageVersion
-	.2byte	0				// MinorImageVersion
-	.2byte	0				// MajorSubsystemVersion
-	.2byte	0				// MinorSubsystemVersion
-	.4byte	0				// Win32VersionValue
+	.quad	0				// ImageBase
+	.long	0x20				// SectionAlignment
+	.long	0x8				// FileAlignment
+	.short	0				// MajorOperatingSystemVersion
+	.short	0				// MinorOperatingSystemVersion
+	.short	0				// MajorImageVersion
+	.short	0				// MinorImageVersion
+	.short	0				// MajorSubsystemVersion
+	.short	0				// MinorSubsystemVersion
+	.long	0				// Win32VersionValue
 
-	.4byte	_edata - ImageBase		// SizeOfImage
+	.long	_edata - ImageBase		// SizeOfImage
 
 	// Everything before the kernel image is considered part of the header
-	.4byte	_start - ImageBase		// SizeOfHeaders
-	.4byte	0				// CheckSum
-	.2byte	EFI_SUBSYSTEM			// Subsystem
-	.2byte	0				// DllCharacteristics
-	.8byte	0				// SizeOfStackReserve
-	.8byte	0				// SizeOfStackCommit
-	.8byte	0				// SizeOfHeapReserve
-	.8byte	0				// SizeOfHeapCommit
-	.4byte	0				// LoaderFlags
-	.4byte	0x10				// NumberOfRvaAndSizes
+	.long	_start - ImageBase		// SizeOfHeaders
+	.long	0				// CheckSum
+	.short	EFI_SUBSYSTEM			// Subsystem
+	.short	0				// DllCharacteristics
+	.quad	0				// SizeOfStackReserve
+	.quad	0				// SizeOfStackCommit
+	.quad	0				// SizeOfHeapReserve
+	.quad	0				// SizeOfHeapCommit
+	.long	0				// LoaderFlags
+	.long	0x6				// NumberOfRvaAndSizes
 
-	.8byte	0				// ExportTable
-	.8byte	0				// ImportTable
-	.8byte	0				// ResourceTable
-	.8byte	0				// ExceptionTable
-	.8byte	0				// CertificationTable
-	.8byte	0				// BaseRelocationTable
-	.8byte	0				// Debug
-	.8byte	0				// Architecture
-	.8byte	0				// Global Ptr
-	.8byte	0				// TLS Table
-	.8byte	0				// Load Config Table
-	.8byte	0				// Bound Import
-	.8byte	0				// IAT
-	.8byte	0				// Delay Import Descriptor
-	.8byte	0				// CLR Runtime Header
-	.8byte	0				// Reserved, must be zero
+	.quad	0				// ExportTable
+	.quad	0				// ImportTable
+	.quad	0				// ResourceTable
+	.quad	0				// ExceptionTable
+	.quad	0				// CertificationTable
+	.quad	0				// BaseRelocationTable
 
 	// Section table
 section_table:
@@ -105,31 +95,31 @@ section_table:
 	.ascii	".reloc"
 	.byte	0
 	.byte	0			// end of 0 padding of section name
-	.4byte	0
-	.4byte	0
-	.4byte	0			// SizeOfRawData
-	.4byte	0			// PointerToRawData
-	.4byte	0			// PointerToRelocations
-	.4byte	0			// PointerToLineNumbers
-	.2byte	0			// NumberOfRelocations
-	.2byte	0			// NumberOfLineNumbers
-	.4byte	0x42100040		// Characteristics (section flags)
+	.long	0
+	.long	0
+	.long	0			// SizeOfRawData
+	.long	0			// PointerToRawData
+	.long	0			// PointerToRelocations
+	.long	0			// PointerToLineNumbers
+	.short	0			// NumberOfRelocations
+	.short	0			// NumberOfLineNumbers
+	.long	0x42100040		// Characteristics (section flags)
 
 
 	.ascii	".text"
 	.byte	0
 	.byte	0
 	.byte	0        		// end of 0 padding of section name
-	.4byte	_edata - _start		// VirtualSize
-	.4byte	_start - ImageBase	// VirtualAddress
-	.4byte	_edata - _start		// SizeOfRawData
-	.4byte	_start - ImageBase	// PointerToRawData
+	.long	_edata - _start		// VirtualSize
+	.long	_start - ImageBase	// VirtualAddress
+	.long	_edata - _start		// SizeOfRawData
+	.long	_start - ImageBase	// PointerToRawData
 
-	.4byte	0		// PointerToRelocations (0 for executables)
-	.4byte	0		// PointerToLineNumbers (0 for executables)
-	.2byte	0		// NumberOfRelocations  (0 for executables)
-	.2byte	0		// NumberOfLineNumbers  (0 for executables)
-	.4byte	0xe0500020	// Characteristics (section flags)
+	.long	0		// PointerToRelocations (0 for executables)
+	.long	0		// PointerToLineNumbers (0 for executables)
+	.short	0		// NumberOfRelocations  (0 for executables)
+	.short	0		// NumberOfLineNumbers  (0 for executables)
+	.long	0xe0500020	// Characteristics (section flags)
 
 	.set		push
 	.set		noreorder
@@ -182,8 +172,8 @@ _pc:
 
 	// a0: ImageHandle
 	ld		$a0, 16($sp)
-	// call _start
-	dla		$t9, _entry
+	// call efi_main
+	dla		$t9, efi_main
 	jalr		$t9
 	// a1: SystemTable
 	ld		$a1, 24($sp)
@@ -196,7 +186,3 @@ _pc:
 	.end		_start
 
 	.set		pop
-
-#if defined(__ELF__) && defined(__linux__)
-	.section .note.GNU-stack,"",%progbits
-#endif

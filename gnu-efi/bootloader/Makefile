@@ -55,8 +55,7 @@ endif
 LDFLAGS		+= -shared -Bsymbolic -L../lib -L../gnuefi $(CRTOBJS)
 
 LOADLIBES	+= -lefi -lgnuefi
-
-# LOADLIBES	+= $(LIBGCC)
+LOADLIBES	+= $(LIBGCC)
 LOADLIBES	+= -T $(LDSCRIPT)
 
 TARGET_APPS = main.efi
@@ -82,8 +81,7 @@ endif
 
 TARGETS = $(TARGET_APPS) $(TARGET_BSDRIVERS) $(TARGET_RTDRIVERS)
 
-
-CFLAGS += -Wno-error=unused-parameter -Wno-error=unused-variable -Wa,--noexecstack
+CFLAGS += -Wno-error=unused-parameter -Wno-error=unused-variable
 
 all:	$(TARGETS)
 

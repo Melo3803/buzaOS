@@ -19,39 +19,9 @@ Abstract:
 #endif
 
 #ifdef _MSC_EXTENSIONS
-#define EFI_NO_TAIL_CALL
+#define ALIGN(x) __declspec(align(x))
 #else
-#ifdef __clang__
-#define EFI_NO_TAIL_CALL __attribute__((disable_tail_calls))
-#else
-#define EFI_NO_TAIL_CALL __attribute__((optimize("no-optimize-sibling-calls")))
-#endif
-#endif
-
-#ifdef _MSC_EXTENSIONS
-#define EFI_OPTNONE
-#else
-#ifdef __clang__
-#define EFI_OPTNONE __attribute__((optnone))
-#else
-#define EFI_OPTNONE __attribute__((__optimize__("0")))
-#endif
-#endif
-
-#ifdef _MSC_EXTENSIONS
-#define EFI_ALIGN(x) __declspec(align(x))
-#else
-#define EFI_ALIGN(x) __attribute__((__aligned__(x)))
-#endif
-
-#ifndef ALIGN
-#define ALIGN(x) EFI_ALIGN(x)
-#endif
-
-#ifdef _MSC_EXTENSIONS
-#define EFI_NORETURN __declspec(noreturn)
-#else
-#define EFI_NORETURN __attribute__((noreturn))
+#define ALIGN(x) __attribute__((__aligned__(x)))
 #endif
 
 /* Also add a catch-all on __attribute__() for MS compilers */
