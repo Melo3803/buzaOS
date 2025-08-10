@@ -1,4 +1,10 @@
 #pragma once
 
-extern unsigned char buza_rgba[];
-extern unsigned int buza_rgba_len;
+namespace ImageData {
+  
+
+  extern const unsigned int IMAGE_WIDTH;
+  extern const unsigned int IMAGE_HEIGHT;
+  extern unsigned char buza_rgba[];
+
+}

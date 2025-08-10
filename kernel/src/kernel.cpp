@@ -5,6 +5,7 @@
 #include "memory.h"
 #include "Bitmap.h"
 #include "PageFrameAllocator.h"
+#include "buza_image.h"
 
 struct BootInfo{
 	Framebuffer* framebuffer;
@@ -86,6 +87,17 @@ extern "C" void _start(BootInfo* bootInfo){
 
     } */
 
+
+    unsigned int image_x = (newRenderer.TargetFramebuffer->Width - ImageData::IMAGE_WIDTH) / 2;
+    unsigned int image_y = (newRenderer.TargetFramebuffer->Height - ImageData::IMAGE_HEIGHT) / 2;
+
+    newRenderer.drawImage(
+        ImageData::buza_rgba, 
+        image_x, 
+        image_y, 
+        ImageData::IMAGE_WIDTH, 
+        ImageData::IMAGE_HEIGHT
+    );
 
     return ;
 }

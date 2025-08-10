@@ -12,4 +12,7 @@ class BasicRenderer{
     unsigned int Colour;
     void Print(const char* str);
     void PutChar(char chr, unsigned int xOff, unsigned int yOff);
+
+    void drawImage(const unsigned char* imageData, unsigned int x, unsigned int y, unsigned int width, unsigned int height);
+
 };

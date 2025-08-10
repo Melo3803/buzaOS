@@ -1,0 +1,6 @@
+kernel/bin/CustomOS.img
+kernel/bin/kernel.elf
+kernel/lib/kernel.o
+kernel/lib/buza_image.o
+kernel/lib/BasicRenderer.o
+kernel/lib/kernel.o
