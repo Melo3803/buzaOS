@@ -23,7 +23,7 @@ extern "C" void _start(BootInfo* bootInfo){
     
     BasicRenderer newRenderer = BasicRenderer(bootInfo->framebuffer, bootInfo->psf1_Font);
     newRenderer.Colour = 0xffff00ff;    
-    //newRenderer.Print("Hello BuzaKernel");
+    newRenderer.Print("Hello BuzaKernel");
     //newRenderer.CursorPosition = {0, 16};
     //newRenderer.Print(to_string((uint64_t)1234975));
     //newRenderer.CursorPosition = {0, 32};
@@ -48,13 +48,13 @@ extern "C" void _start(BootInfo* bootInfo){
     uint64_t kernelPages = (uint64_t)kernelSize / 4096 + 1;
 
     newAllocator.LockPages(&_KernelStart, kernelPages);
-
+	//todo fix bug with ram more than 1GB
     newRenderer.CursorPosition = {0, newRenderer.CursorPosition.Y + 16};
     newRenderer.Print("Free RAM: ");
     newRenderer.Print(to_string(newAllocator.GetFreeRAM() / 1024));
     newRenderer.Print(" KB ");
     newRenderer.CursorPosition = {0, newRenderer.CursorPosition.Y + 16};
-
+	
     newRenderer.Print("Used RAM: ");
     newRenderer.Print(to_string(newAllocator.GetUsedRAM() / 1024));
     newRenderer.Print(" KB ");
