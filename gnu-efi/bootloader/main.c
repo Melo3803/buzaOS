@@ -118,19 +118,17 @@ int memcmp(const void* aptr, const void* bptr, size_t n){
 	return 0;
 }
 
-typedef struct
-{
+typedef struct {
 	Framebuffer* framebuffer;
 	PSF1_FONT* psf1_Font;
 	EFI_MEMORY_DESCRIPTOR* mMap;
 	UINTN mMapSize;
 	UINTN mMapDescSize;
-}BootInfo;
-
+} BootInfo;
 
 EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	InitializeLib(ImageHandle, SystemTable);
-	Print(L"String blah blah blah \n\r");
+	Print(L"Oha yuklendi \n\r");
 
 	EFI_FILE* Kernel = LoadFile(NULL, L"kernel.elf", ImageHandle, SystemTable);
 	if (Kernel == NULL){
@@ -199,7 +197,6 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
 	Print(L"Kernel Loaded\n\r");
 	
-	
 
 	PSF1_FONT* newFont = LoadPSF1Font(NULL, L"zap-light16.psf", ImageHandle, SystemTable);
 	if (newFont == NULL){
@@ -220,16 +217,15 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	newBuffer->Height, 
 	newBuffer->PixelsPerScanLine);
 
-	EFI_MEMORY_DESCRIPTOR* Map= NULL;
+	EFI_MEMORY_DESCRIPTOR* Map = NULL;
 	UINTN MapSize, MapKey;
 	UINTN DescriptorSize;
 	UINT32 DescriptorVersion;
 	{
-
+		
 		SystemTable->BootServices->GetMemoryMap(&MapSize, Map, &MapKey, &DescriptorSize, &DescriptorVersion);
 		SystemTable->BootServices->AllocatePool(EfiLoaderData, MapSize, (void**)&Map);
 		SystemTable->BootServices->GetMemoryMap(&MapSize, Map, &MapKey, &DescriptorSize, &DescriptorVersion);
-
 
 	}
 
@@ -241,10 +237,10 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	bootInfo.mMap = Map;
 	bootInfo.mMapSize = MapSize;
 	bootInfo.mMapDescSize = DescriptorSize;
-	
+
 	SystemTable->BootServices->ExitBootServices(ImageHandle, MapKey);
 
 	KernelStart(&bootInfo);
 
-	return EFI_SUCCESS; // Exit the UEFI application
+	return EFI_SUCCESS;
 }
