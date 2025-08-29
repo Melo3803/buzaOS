@@ -3,7 +3,6 @@
 
 class BuzaApp : public Application {
 public:
-    BuzaApp();
-    ~BuzaApp();
-    void Run() override;
+    void OnStart() override;
+    void OnUpdate() override;
 };
