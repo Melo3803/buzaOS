@@ -3,6 +3,7 @@
 #include "desktop.h"
 #include "paint.h"
 #include "buza.h"
+#include "terminal.h"
 
 class AppManager {
 public:
@@ -12,7 +13,8 @@ public:
     Application* CurrentApp;
     DesktopApp* Desktop;
     PaintApp* Paint;
-    BuzaApp* Buza = nullptr; // Yeni uygulama
+    BuzaApp* Buza; // Yeni uygulama
+    TerminalApp* Terminal;
 
     void RunCurrentApp();
     void SwitchTo(Application* app);
