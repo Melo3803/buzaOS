@@ -3,10 +3,6 @@
 
 class DesktopApp : public Application {
 public:
-    DesktopApp();
-    ~DesktopApp();
-
-    void Run() override;
-
-
+    void OnStart() override;
+    void OnUpdate() override;
 };
