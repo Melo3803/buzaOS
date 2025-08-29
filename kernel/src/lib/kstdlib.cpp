@@ -1,28 +1,63 @@
 #include <stddef.h>
+#include "../paging/PageFrameAllocator.h"
 
-// C++'ın ihtiyaç duyduğu temel fonksiyonlar
 
-// 'operator new' ve 'delete' için çok basit bir bellek yöneticisi (heap)
-char simple_heap[1024 * 1024 * 4]; // 4 MB heap
-size_t heap_ptr = 0;
+void* alloc_page();
+void free_page(void* address);
+
+
+struct MallocHeader {
+    uint64_t num_pages; // su anda her zaman 1 olacak
+};
 
 void* operator new(size_t size) {
-    if (heap_ptr + size > sizeof(simple_heap)) {
-        // kernel panic yasiyok
-        return 0; // HATALI
+    
+    if (size > 4096 - sizeof(MallocHeader)) {
+       
+        return NULL;
     }
-    void* ptr = &simple_heap[heap_ptr];
-    heap_ptr += size;
-    return ptr;
+
+    
+    void* allocated_page = alloc_page();
+    if (allocated_page == NULL) {
+        return NULL;
+    }
+
+    
+    MallocHeader* header = (MallocHeader*)allocated_page;
+    header->num_pages = 1;
+
+
+    void* user_ptr = (void*)((uint64_t)allocated_page + sizeof(MallocHeader));
+    return user_ptr;
 }
 
 void operator delete(void* ptr) {
+    if (ptr == NULL) return;
+
     
+    void* page_start = (void*)((uint64_t)ptr - sizeof(MallocHeader));
+    
+    
+    free_page(page_start);
 }
 
 void operator delete(void* ptr, size_t size) {
-    
+    if (ptr == NULL) return;
+
+    void* page_start = (void*)((uint64_t)ptr - sizeof(MallocHeader));
+    free_page(page_start);
 }
+
+
+void* alloc_page() {
+    return GlobalAllocator.RequestPage();
+}
+
+void free_page(void* address) {
+    GlobalAllocator.FreePage(address);
+}
+
 
 extern "C" {
     void __cxa_pure_virtual() {
