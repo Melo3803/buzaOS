@@ -11,8 +11,12 @@ BasicRenderer::BasicRenderer(Framebuffer* targetFramebuffer, PSF1_FONT* psf1_Fon
 }
 
 void BasicRenderer::PutPix(uint32_t x, uint32_t y, uint32_t colour){
-    *(uint32_t*)((uint64_t)TargetFramebuffer->BaseAddress + (x*4) + (y * TargetFramebuffer->PixelsPerScanLine * 4)) = colour;
+    if (!TargetFramebuffer) return;
+    if (x >= TargetFramebuffer->Width || y >= TargetFramebuffer->Height) return;
+    uint64_t pixelAddr = (uint64_t)TargetFramebuffer->BaseAddress + ((uint64_t)x + (uint64_t)y * TargetFramebuffer->PixelsPerScanLine) * 4;
+    *(uint32_t*)pixelAddr = colour;
 }
+
 
 uint32_t BasicRenderer::GetPix(uint32_t x, uint32_t y){
     return *(uint32_t*)((uint64_t)TargetFramebuffer->BaseAddress + (x*4) + (y * TargetFramebuffer->PixelsPerScanLine * 4));
@@ -42,6 +46,26 @@ void BasicRenderer::ClearMouseCursor(uint8_t* mouseCursor, Point position){
         }
     }
 }
+
+void BasicRenderer::DrawImageRGBA(unsigned char* rgba, int width, int height, int posX, int posY) {
+    if (!TargetFramebuffer) return;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            int idx = (y * width + x) * 4; // RGBA dizisi
+            unsigned char r = rgba[idx + 0];
+            unsigned char g = rgba[idx + 1];
+            unsigned char b = rgba[idx + 2];
+            unsigned char a = rgba[idx + 3];
+
+            if (a > 0) { // basit alpha kontrolü
+                uint32_t color = (r << 16) | (g << 8) | b;
+                PutPix(posX + x, posY + y, color);
+            }
+        }
+    }
+}
+
 
 void BasicRenderer::DrawOverlayMouseCursor(uint8_t* mouseCursor, Point position, uint32_t colour){
 
@@ -142,18 +166,31 @@ void BasicRenderer::Print(const char* str)
 
 void BasicRenderer::PutChar(char chr, unsigned int xOff, unsigned int yOff)
 {
-    unsigned int* pixPtr = (unsigned int*)TargetFramebuffer->BaseAddress;
-    char* fontPtr = (char*)PSF1_Font->glyphBuffer + (chr * PSF1_Font->psf1_Header->charsize);
-    for (unsigned long y = yOff; y < yOff + 16; y++){
-        for (unsigned long x = xOff; x < xOff+8; x++){
-            if ((*fontPtr & (0b10000000 >> (x - xOff))) > 0){
-                    *(unsigned int*)(pixPtr + x + (y * TargetFramebuffer->PixelsPerScanLine)) = Colour;
-                }
+    if (!PSF1_Font || !TargetFramebuffer) return;
 
+    uint8_t uchr = (uint8_t)chr;
+    unsigned long charsize = PSF1_Font->psf1_Header->charsize;
+    char* fontPtr = (char*)PSF1_Font->glyphBuffer + (uchr * charsize);
+
+    // bounds: ensure yOff + 16 <= Height and xOff + 8 <= Width
+    if (yOff >= TargetFramebuffer->Height) return;
+    if (xOff >= TargetFramebuffer->Width) return;
+    unsigned int maxY = (yOff + 16 > TargetFramebuffer->Height) ? TargetFramebuffer->Height : (yOff + 16);
+    unsigned int maxX = (xOff + 8 > TargetFramebuffer->Width) ? TargetFramebuffer->Width : (xOff + 8);
+
+    for (unsigned long y = yOff; y < maxY; y++){
+        for (unsigned long x = xOff; x < maxX; x++){
+            // bit index relative to glyph row
+            unsigned int bit = x - xOff;
+            if ((*fontPtr & (0b10000000 >> bit)) > 0){
+                uint64_t pixelAddr = (uint64_t)TargetFramebuffer->BaseAddress + ((uint64_t)x + (uint64_t)y * TargetFramebuffer->PixelsPerScanLine) * 4;
+                *(uint32_t*)pixelAddr = Colour;
+            }
         }
         fontPtr++;
     }
 }
+
 
 void BasicRenderer::PutChar(char chr)
 {
