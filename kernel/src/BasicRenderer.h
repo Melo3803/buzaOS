@@ -28,6 +28,7 @@ class BasicRenderer{
     void SwapBuffers(); // YENİ: Arka tamponu ekrana kopyalayan fonksiyon   
     void DrawOverlayMouseCursor(uint8_t* mouseCursor, Point position, uint32_t colour);
     void ClearMouseCursor(uint8_t* mouseCursor, Point position);
+    void DrawImageRGBA(unsigned char* rgba, int width, int height, int posX, int posY);
     bool MouseDrawn;
 };
 
